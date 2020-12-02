@@ -1,0 +1,5 @@
+.emacs*
+auto-save-list
+project-explorer-cache
+elpa
+recentf
