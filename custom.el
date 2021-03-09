@@ -10,6 +10,7 @@
  '(counsel-find-file-ignore-regexp "\\`\\.")
  '(css-indent-offset 2)
  '(cursor-type '(bar . 2))
+ '(custom-enabled-themes '(atom-dark))
  '(custom-safe-themes
    '("5b7c31eb904d50c470ce264318f41b3bbc85545e4359e6b7d48ee88a892b1915" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default))
  '(dabbrev-case-distinction nil)
@@ -42,10 +43,7 @@
  '(ns-pop-up-frames nil)
  '(ns-right-alternate-modifier 'none)
  '(package-selected-packages
-   '(flycheck typescript-mode smart-jump flx mark-multiple helpful atom-dark-theme smart-mode-line ivy tern js2-mode company powerline spaceline-all-the-icons powerline-evil spaceline all-the-icons fundamental-mode js2-refactor wgrep tj-mode web-mode ag yaml-mode which-key use-package tide smex smart-mode-line-powerline-theme sass-mode rjsx-mode rainbow-mode project-explorer markdown-mode js2-highlight-vars highlight-symbol helm-git-grep helm flycheck-title editorconfig diff-hl counsel company-tern coffee-mode anzu))
- '(pe/omit-gitignore t)
- '(pe/side 'left)
- '(pe/width 35)
+   '(es-lib json-mode flycheck typescript-mode smart-jump flx mark-multiple helpful atom-dark-theme smart-mode-line ivy tern js2-mode company powerline spaceline-all-the-icons powerline-evil spaceline all-the-icons fundamental-mode js2-refactor wgrep tj-mode web-mode ag yaml-mode which-key use-package tide smex smart-mode-line-powerline-theme sass-mode rjsx-mode rainbow-mode project-explorer markdown-mode js2-highlight-vars highlight-symbol helm-git-grep helm flycheck-title editorconfig diff-hl counsel company-tern coffee-mode anzu))
  '(recentf-menu-filter 'recentf-arrange-by-dir)
  '(safe-local-variable-values '((sgml-basic-offset . 2) (standard-indent . 2)))
  '(scroll-margin 3)
@@ -53,16 +51,18 @@
  '(smart-jump-peek-key "M-p")
  '(sml/theme 'respectful)
  '(tool-bar-mode nil)
+ '(treemacs-width 50)
  '(typescript-indent-level 2)
- '(use-package-always-ensure t))
+ '(use-package-always-ensure t)
+ '(web-mode-attr-indent-offset 2)
+ '(window-divider-default-right-width 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 140 :family "Menlo"))))
+ '(default ((t (:height 140 :family "Roboto Mono"))))
  '(cursor ((t (:background "red3"))))
- '(helm-source-header ((t (:height 150))))
  '(hl-line ((t (:background "#3E4450"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.3 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.2 :weight bold))))
@@ -70,5 +70,4 @@
  '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.0 :weight bold))))
  '(minibuffer-prompt ((t (:background "#3E4450" :foreground "#FFFFFF"))))
  '(mode-line ((t (:family "Helvetica"))))
- '(pe/directory-face ((t (:inherit dired-directory :height 110 :family "Menlo"))))
- '(pe/file-face ((t (:inherit default :height 110 :family "Menlo")))))
+ '(window-divider ((t (:foreground "gray19")))))

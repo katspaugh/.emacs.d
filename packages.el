@@ -92,6 +92,7 @@
 
 ;; Project explorer
 (use-package project-explorer
+  :load-path "~/.emacs.d/project-explorer.el"
   :bind (("C-c C-p" . project-explorer-open))
   :config (progn
             (add-hook 'project-explorer-mode-hook (lambda ()
