@@ -123,8 +123,17 @@
   :init (counsel-mode 1)
   :bind (("C-x C-b" . ivy-switch-buffer)
          ("C-x C-d" . counsel-git)
-         ("C-x C-a" . counsel-ag)
+         ("C-x C-g" . counsel-ag)
          ("C-x C-r" . counsel-recentf)))
+
+(defun counsel-ag-from-isearch ()
+  "Invoke `counsel-ag' from isearch."
+  (interactive)
+  (let ((input (if isearch-regexp isearch-string (regexp-quote isearch-string))))
+    (isearch-exit)
+    (counsel-ag input)))
+
+(define-key isearch-mode-map (kbd "C-x C-g") 'counsel-ag-from-isearch)
 
 ;; CSS colors
 (use-package rainbow-mode
