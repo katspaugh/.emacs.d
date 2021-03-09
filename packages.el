@@ -49,8 +49,7 @@
 
 ;; TypeScript
 (use-package typescript-mode
-  :mode (("\\.ts\\'" . typescript-mode)
-         ("\\.tsx\\'" . typescript-mode)))
+  :mode (("\\.ts\\'" . typescript-mode)))
 
 (defun setup-tide-mode ()
   (interactive)
@@ -66,9 +65,13 @@
     (add-hook 'js2-mode-hook #'setup-tide-mode)
     (add-hook 'rjsx-mode-hook #'setup-tide-mode)))
 
-;; JSX
-(use-package rjsx-mode
-  :mode "\\.jsx$")
+(use-package web-mode
+  :mode (("\\.tsx\\'" . web-mode)
+         ("\\.jsx\\'" . web-mode))
+  :config
+  (progn
+    (flycheck-add-mode 'typescript-tslint 'web-mode)
+    (add-hook 'web-mode-hook 'setup-tide-mode)))
 
 ;; Yaml
 (use-package yaml-mode
