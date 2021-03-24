@@ -13,13 +13,6 @@
   (require 'use-package))
 (require 'bind-key)
 
-;; Smart mode line
-(use-package smart-mode-line
-  :init (smart-mode-line-enable))
-
-(use-package atom-dark-theme
-  :init (load-theme 'atom-dark))
-
 (use-package diff-hl
   :defer 1
   :init (global-diff-hl-mode t))
@@ -34,9 +27,9 @@
   :bind ("M-<tab>" . company-complete))
 
 ;; Count matched lines
-(use-package anzu
-  :defer 1
-  :init (global-anzu-mode))
+;; (use-package anzu
+;;   :defer 1
+;;   :init (global-anzu-mode))
 
 ;; Markdown
 (use-package markdown-mode
@@ -144,5 +137,26 @@
   :config (progn
             (setq rainbow-html-colors nil)
             (add-hook 'css-mode-hook #'rainbow-mode)))
+
+
+(add-to-list 'load-path "~/.emacs.d/nano-emacs")
+(require 'nano-base-colors)
+(require 'nano-colors)
+(require 'nano-faces)
+(require 'nano-theme)
+(require 'nano-theme-light)
+(require 'nano-splash)
+(require 'nano-modeline)
+(nano-faces)
+(nano-theme)
+
+(dolist (x '((ns-transparent-titlebar . unbound)
+		  (ns-appearance . unbound)))
+   (add-to-list 'frameset-filter-alist x))
+
+;; which-key
+(use-package which-key
+  :defer 1
+  :init (which-key-mode t))
 
 ;;; packages.el ends here

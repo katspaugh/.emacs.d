@@ -8,15 +8,12 @@
       `((".*" ,temporary-file-directory t)))
 (setq auto-save-default nil)
 
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
-(setq ns-use-proxy-icon nil)
-(setq frame-title-format nil)
-(set-frame-parameter (selected-frame) 'name nil)
-
 ;; Set system PATH
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
+
+(setq frame-title-format "%f")
+(setq ns-use-proxy-icon nil)
 
 ;; y-or-no-p
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -62,18 +59,18 @@
   (set (make-local-variable 'face-remapping-alist)
        '((default :height 250 :family "San Francisco"))))
 
+;; Session
+(load "~/.emacs.d/session.el")
+
 ;; Load packages
 (run-with-idle-timer 0.1 nil #'load "~/.emacs.d/packages.el")
 
 ;; Keybindings
-(run-with-idle-timer 1 nil #'load "~/.emacs.d/keybindings.el")
-
-;; Session
-(run-with-idle-timer 1 nil #'load "~/.emacs.d/session.el")
+(run-with-idle-timer 0.1 nil #'load "~/.emacs.d/keybindings.el")
 
 ;; Custom file
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(run-with-idle-timer 0.2 nil #'load custom-file)
 
 ;; Start the Emacs server
 (run-with-idle-timer 1 nil #'server-start)
