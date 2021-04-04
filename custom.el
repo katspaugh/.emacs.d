@@ -4,7 +4,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
- ;'(column-number-mode t)
  '(company-backends
    '(company-tide company-nxml company-css company-capf company-files))
  '(counsel-find-file-ignore-regexp "\\`\\.")
@@ -39,7 +38,7 @@
  '(ns-pop-up-frames nil)
  '(ns-right-alternate-modifier 'none)
  '(package-selected-packages
-   '(guide-key-tip es-lib json-mode flycheck typescript-mode smart-jump flx mark-multiple helpful atom-dark-theme smart-mode-line ivy tern js2-mode company powerline spaceline-all-the-icons powerline-evil spaceline all-the-icons fundamental-mode js2-refactor wgrep tj-mode web-mode ag yaml-mode which-key use-package tide smex smart-mode-line-powerline-theme sass-mode rjsx-mode rainbow-mode project-explorer markdown-mode js2-highlight-vars highlight-symbol helm-git-grep helm flycheck-title editorconfig diff-hl counsel company-tern coffee-mode anzu))
+   '(mmm-mode ov fence-edit guide-key-tip es-lib json-mode flycheck typescript-mode smart-jump flx mark-multiple helpful atom-dark-theme smart-mode-line ivy tern js2-mode company powerline spaceline-all-the-icons powerline-evil spaceline all-the-icons fundamental-mode js2-refactor wgrep tj-mode web-mode ag yaml-mode which-key use-package tide smex smart-mode-line-powerline-theme sass-mode rjsx-mode rainbow-mode project-explorer markdown-mode js2-highlight-vars highlight-symbol helm-git-grep helm flycheck-title editorconfig diff-hl counsel company-tern coffee-mode anzu))
  '(recentf-menu-filter 'recentf-arrange-by-dir)
  '(safe-local-variable-values '((sgml-basic-offset . 2) (standard-indent . 2)))
  '(scroll-margin 3)
@@ -57,7 +56,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:height 140 :family "Roboto Mono"))))
- '(hl-line ((t (:background "#B2BDC4" :foreground "#FFFFFF"))))
+ '(hl-line ((t (:extend t :background "#B0BEC5" :foreground "#FFFFFF"))))
  '(ivy-current-match ((t (:extend t :background "#B2BDC4" :foreground "white"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.3 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.2 :weight bold))))

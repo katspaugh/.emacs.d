@@ -70,7 +70,7 @@
 
 ;; Custom file
 (setq custom-file "~/.emacs.d/custom.el")
-(run-with-idle-timer 0.2 nil #'load custom-file)
+(run-with-idle-timer 0.3 nil #'load custom-file)
 
 ;; Start the Emacs server
 (run-with-idle-timer 1 nil #'server-start)

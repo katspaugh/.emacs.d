@@ -40,9 +40,48 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+(use-package web-mode
+  :mode ("\\.jsx\\'" . web-mode)
+  :config
+  (progn
+    (flycheck-add-mode 'typescript-tslint 'web-mode)
+    (add-hook 'web-mode-hook 'setup-tide-mode)))
+
+;; mmm-mode
+(use-package mmm-mode
+  :config
+  (progn
+    (setq mmm-global-mode t)
+    (setq mmm-submode-decoration-level 0) ;; Turn off background highlight
+    (mmm-add-classes
+     '((mmm-styled-mode
+        :submode css-mode
+        :front "\\(styled\\|css\\)[.()<>[:alnum:]]?+`"
+        :back "`;")))
+    (mmm-add-mode-ext-class 'typescript-mode nil 'mmm-styled-mode)
+
+    (mmm-add-classes
+     '((mmm-jsx-mode
+        :front "\\(return\s\\|n\s\\|(\n\s*\\)<"
+        :front-offset -1
+        :back ">\n?\s*)"
+        :back-offset 1
+        :submode web-mode)))
+    (mmm-add-mode-ext-class 'typescript-mode nil 'mmm-jsx-mode)))
+
+(defun mmm-reapply ()
+  (mmm-mode)
+  (mmm-mode))
+
+(add-hook 'after-save-hook
+          (lambda ()
+            (when (string-match-p "\\.tsx?" buffer-file-name)
+              (mmm-reapply))))
+
 ;; TypeScript
 (use-package typescript-mode
-  :mode (("\\.ts\\'" . typescript-mode)))
+  :mode (("\\.ts\\'" . typescript-mode))
+  :mode (("\\.tsx\\'" . typescript-mode)))
 
 (defun setup-tide-mode ()
   (interactive)
@@ -57,14 +96,6 @@
     (add-hook 'js-mode-hook #'setup-tide-mode)
     (add-hook 'js2-mode-hook #'setup-tide-mode)
     (add-hook 'rjsx-mode-hook #'setup-tide-mode)))
-
-(use-package web-mode
-  :mode (("\\.tsx\\'" . web-mode)
-         ("\\.jsx\\'" . web-mode))
-  :config
-  (progn
-    (flycheck-add-mode 'typescript-tslint 'web-mode)
-    (add-hook 'web-mode-hook 'setup-tide-mode)))
 
 ;; Yaml
 (use-package yaml-mode
@@ -152,7 +183,7 @@
 
 (dolist (x '((ns-transparent-titlebar . unbound)
 		  (ns-appearance . unbound)))
-   (add-to-list 'frameset-filter-alist x))
+  (add-to-list 'frameset-filter-alist x))
 
 ;; which-key
 (use-package which-key
