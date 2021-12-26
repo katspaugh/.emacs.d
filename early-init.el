@@ -8,6 +8,8 @@
       `((".*" ,temporary-file-directory t)))
 (setq auto-save-default nil)
 
+(setq create-lockfiles nil)
+
 ;; Set system PATH
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))

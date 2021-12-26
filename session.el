@@ -2,17 +2,17 @@
 (setq savehist-additional-variables
       '(kill-ring
         command-history
-	set-variable-value-history
-	custom-variable-history
-	query-replace-history
-	read-expression-history
-	minibuffer-history
-	read-char-history
-	face-name-history
-	bookmark-history
+	      set-variable-value-history
+	      custom-variable-history
+	      query-replace-history
+	      read-expression-history
+	      minibuffer-history
+	      read-char-history
+	      face-name-history
+	      bookmark-history
         ivy-history
-	counsel-M-x-history
-	file-name-history
+	      counsel-M-x-history
+	      file-name-history
         counsel-minibuffer-history))
 (setq history-length 100)
 (setq kill-ring-max 25)
@@ -46,5 +46,5 @@
       version-control t       ; version numbers for backup files
       delete-old-versions t   ; delete excess backup files silently
       kept-old-versions 6     ; oldest versions to keep when a new numbered
-                              ;  backup is made (default: 2)
+                                        ;  backup is made (default: 2)
       kept-new-versions 9)    ; newest versions to keep when a new numbered

@@ -14,11 +14,11 @@
 (require 'bind-key)
 
 ;; ;; Smart mode line
-;; (use-package smart-mode-line
-;;   :init (smart-mode-line-enable))
+(use-package smart-mode-line
+  :config (smart-mode-line-enable))
 
-;; (use-package atom-dark-theme
-;;   :init (load-theme 'atom-dark))
+;; (use-package sanityinc-tomorrow-night
+;;   :init (load-theme 'sanityinc-tomorrow-night))
 
 (use-package diff-hl
   :defer 1
@@ -47,14 +47,14 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-(use-package web-mode
-  :mode ("\\.jsx\\'" . web-mode)
-  :config
-  (progn
-    (flycheck-add-mode 'typescript-tslint 'web-mode)
-    (add-hook 'web-mode-hook 'setup-tide-mode)))
+;; (use-package web-mode
+;;   :mode ("\\.jsx\\'" . web-mode)
+;;   :config
+;;   (progn
+;;     (flycheck-add-mode 'typescript-tslint 'web-mode)
+;;     (add-hook 'web-mode-hook 'setup-tide-mode)))
 
-;; mmm-mode
+;; mmm-mode (for JSX)
 (use-package mmm-mode
   :config
   (progn
@@ -126,12 +126,11 @@
 
 ;; Project explorer
 (use-package project-explorer
-  :load-path "~/.emacs.d/project-explorer.el"
   :bind (("C-c C-p" . project-explorer-open))
   :config (progn
             (add-hook 'project-explorer-mode-hook (lambda ()
-                                                    (setq-local left-fringe-width 4)
-                                                    (setq-local right-fringe-width 4)))
+                                                    (setq-local left-fringe-width 6)
+                                                    (setq-local right-fringe-width 6)))
             (add-hook 'project-explorer-mode-hook 'hl-line-mode)
 
             (defun highlight-file-line (&rest args) (hl-line-highlight))
@@ -140,6 +139,7 @@
          pe/follow-current t
          pe/omit-gitignore t
          pe/width 30))
+(load "~/.emacs.d/project-explorer.el")
 
 ;; Ivy
 (use-package ivy
@@ -149,9 +149,6 @@
 
 (use-package smex)
 (use-package flx)
-
-;; Recent files
-(recentf-mode)
 
 (use-package counsel
   :init (counsel-mode 1)
@@ -169,23 +166,15 @@
 
 (define-key isearch-mode-map (kbd "C-x C-g") 'counsel-ag-from-isearch)
 
+;; Transparent titlebar
+(use-package ns-auto-titlebar
+  :init (when (eq system-type 'darwin) (ns-auto-titlebar-mode)))
+
 ;; CSS colors
 (use-package rainbow-mode
   :defer 1
   :config (progn
             (setq rainbow-html-colors nil)
             (add-hook 'css-mode-hook #'rainbow-mode)))
-
-(dolist (x '((ns-transparent-titlebar . unbound)
-		  (ns-appearance . unbound)))
-  (add-to-list 'frameset-filter-alist x))
-
-;(add-to-list 'default-frame-alist '(ns-appearance . dark))
-;(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-
-;; which-key
-(use-package which-key
-  :defer 1
-  :init (which-key-mode t))
 
 ;;; packages.el ends here
