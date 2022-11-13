@@ -8,6 +8,7 @@
       `((".*" ,temporary-file-directory t)))
 (setq auto-save-default nil)
 
+;; Disable lockfiles
 (setq create-lockfiles nil)
 
 ;; Set system PATH
@@ -54,6 +55,10 @@
 ;; Allow upcase-region
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;; Highlight matching pairs of parentheses.
+(setq show-paren-delay 0)
+(show-paren-mode)
 
 ;; Make the minibuffer prompt's font bigger
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)

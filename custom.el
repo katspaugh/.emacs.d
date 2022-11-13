@@ -7,16 +7,17 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    (vector "#2d2d2d" "#f2777a" "#99cc99" "#ffcc66" "#6699cc" "#cc99cc" "#66cccc" "#cccccc"))
- '(beacon-color "#f2777a")
  '(blink-cursor-mode nil)
  '(company-backends
    '(company-tide company-nxml company-css company-capf company-files))
+ '(company-idle-delay 1000)
+ '(copilot-idle-delay 0.1)
  '(counsel-find-file-ignore-regexp "\\`\\.")
  '(css-indent-offset 2)
  '(cursor-type '(bar . 2))
- '(custom-enabled-themes '(smart-mode-line-respectful sanityinc-tomorrow-night))
+ '(custom-enabled-themes '(vscode-dark-plus))
  '(custom-safe-themes
-   '("e29a6c66d4c383dbda21f48effe83a1c2a1058a17ac506d60889aba36685ed94" "171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" "5b7c31eb904d50c470ce264318f41b3bbc85545e4359e6b7d48ee88a892b1915" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "3a9f65e0004068ecf4cf31f4e68ba49af56993c20258f3a49e06638c825fbfb6" "cf856c10886059898685bfdba0c2b0e1416562475e8f47d29a60aa10c264d42e" default))
+   '("0ed28b0694dd2c7a2407598e63650a8562b9e833a1a136ee74790a74d3776d3b" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))
  '(dabbrev-case-distinction nil)
  '(dabbrev-case-replace nil)
  '(desktop-buffers-not-to-save ".")
@@ -32,6 +33,7 @@
  '(frame-background-mode 'dark)
  '(highlight-symbol-foreground-color nil)
  '(highlight-symbol-idle-delay 0.1)
+ '(ido-everywhere t)
  '(imenu-use-popup-menu t)
  '(inhibit-startup-screen t)
  '(ivy-count-format "")
@@ -42,27 +44,20 @@
  '(ivy-wrap t)
  '(js-switch-indent-offset 4)
  '(js2-mode-assume-strict t)
+ '(mini-frame-show-parameters '((top . 0.1) (left . 0.5) (height . 15) (width . 0.9)))
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(ns-function-modifier 'alt)
  '(ns-pop-up-frames nil)
  '(ns-right-alternate-modifier 'none)
  '(package-selected-packages
-   '(smart-mode-line project-explorer ns-auto-titlebar color-theme-sanityinc-tomorrow ujelly-theme vs-dark-theme which-key rainbow-mode counsel flx smex ivy yaml-mode tide typescript-mode mmm-mode web-mode markdown-mode anzu company diff-hl use-package))
+   '(vscode-dark-plus-theme mini-frame editorconfig smart-dash flycheck nlinum rainbow-delimiters paredit rainbow-blocks smart-mode-line project-explorer ns-auto-titlebar color-theme-sanityinc-tomorrow ujelly-theme vs-dark-theme which-key rainbow-mode counsel flx smex ivy yaml-mode tide typescript-mode mmm-mode web-mode markdown-mode anzu company diff-hl use-package))
  '(recentf-menu-filter 'recentf-arrange-by-dir)
  '(safe-local-variable-values '((sgml-basic-offset . 2) (standard-indent . 2)))
  '(scroll-margin 3)
  '(scroll-step 5)
  '(smart-jump-peek-key "M-p")
  '(sml/theme 'respectful)
- '(tetris-x-colors
-   [[229 192 123]
-    [97 175 239]
-    [209 154 102]
-    [224 108 117]
-    [152 195 121]
-    [198 120 221]
-    [86 182 194]])
  '(tool-bar-mode nil)
  '(typescript-indent-level 2)
  '(use-package-always-ensure t)
@@ -75,6 +70,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t nil)))
+ '(copilot-overlay-face ((t (:inherit shadow :foreground "#777777"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.3 :weight bold))))
  '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.2 :weight bold))))
  '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.1 :weight bold))))
