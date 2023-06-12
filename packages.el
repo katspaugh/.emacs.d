@@ -1,13 +1,6 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-;; Code completion at point
-(use-package company
-  :ensure t
-  :hook (after-init . global-company-mode)
-  :custom
-  (company-idle-delay 0))
-
 ;; Markdown
 (use-package markdown-mode
   :ensure t
@@ -32,24 +25,6 @@
     (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
     (add-hook 'lisp-interaction-mode-hook 'rainbow-delimiters-mode)
     (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)))
-
-;; Flycheck
-(use-package flycheck
-  :ensure t
-  :defer 1
-  :init (setq
-         flycheck-checkers
-         '(javascript-eslint
-           jsx-tide
-           css-csslint
-           emacs-lisp
-           haml
-           json-jsonlint
-           yaml-jsyaml))
-  :config (global-flycheck-mode))
-
-(with-eval-after-load 'flycheck
-  (flycheck-add-mode 'javascript-eslint 'typescript-mode))
 
 ;; Project explorer
 (use-package project-explorer
@@ -145,7 +120,22 @@
 
 (define-key isearch-mode-map (kbd "C-x C-g") 'counsel-ag-from-isearch)
 
+;; Code completion at point
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode)
+  :bind (
+         :map company-mode-map
+              ("M-<tab>" . company-complete)
+              :map company-active-map
+              ("<return>" . nil))
+  :custom
+  (company-idle-delay 0))
+
 ;; Typescript
+(use-package tsx-ts-mode
+  :mode "\\.tsx\\'")
+
 (use-package tide
   :ensure t
   :after (company flycheck)
@@ -153,3 +143,9 @@
          (tsx-ts-mode . tide-setup)
          (typescript-ts-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
+
+;; Flycheck
+(use-package flycheck
+  :ensure t
+  :defer 1
+  :config (global-flycheck-mode))
