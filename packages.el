@@ -1,3 +1,5 @@
+;;; Code:
+
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
@@ -149,3 +151,5 @@
   :ensure t
   :defer 1
   :config (global-flycheck-mode))
+
+;;; packages.el ends here

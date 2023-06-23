@@ -65,3 +65,5 @@
 
 ;; Load keybindings
 (run-with-idle-timer 0.2 nil #'load "~/.emacs.d/keybindings.el")
+
+;;; early-init.el ends here
