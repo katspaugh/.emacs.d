@@ -3,12 +3,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-idle-delay nil)
+ '(company-tooltip-idle-delay nil)
  '(custom-enabled-themes '(modus-operandi))
+ '(custom-safe-themes
+   '("3770d0ae70172461ee0a02edcff71b7d480dc54066e8960d8de9367d12171efb" default))
+ '(desktop-buffers-not-to-save ".")
+ '(desktop-files-not-to-save ".")
  '(indent-tabs-mode nil)
  '(ivy-count-format "")
  '(mini-frame-show-parameters '((top . 0.2) (left . 0.5) (width . 0.9) (height . 15)))
  '(package-selected-packages
-   '(tide consult-ag orderless consult mini-frame editorconfig s vertico rainbow-mode counsel project-explorer flycheck rainbow-delimiters yaml-mode markdown-mode company))
+   '(diff-hl plan9-theme magit php-mode tide consult-ag orderless tree-sitter-langs consult mini-frame editorconfig s vertico rainbow-mode counsel project-explorer flycheck rainbow-delimiters yaml-mode markdown-mode company))
  '(standard-indent 2)
  '(vertico-count-format nil))
 (custom-set-faces

@@ -125,16 +125,17 @@
 ;; Code completion at point
 (use-package company
   :ensure t
-  :hook (after-init . global-company-mode)
+  :init (global-company-mode)
   :bind (
          :map company-mode-map
               ("M-<tab>" . company-complete)
               :map company-active-map
-              ("<return>" . nil))
-  :custom
-  (company-idle-delay 0))
+              ("<return>" . nil)))
 
 ;; Typescript
+(use-package typescript-ts-mode
+  :mode "\\.ts\\'")
+
 (use-package tsx-ts-mode
   :mode "\\.tsx\\'")
 
@@ -144,12 +145,18 @@
   :hook ((typescript-ts-mode . tide-setup)
          (tsx-ts-mode . tide-setup)
          (typescript-ts-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
+         (after-save . prettier-prettify)))
 
 ;; Flycheck
 (use-package flycheck
   :ensure t
   :defer 1
   :config (global-flycheck-mode))
+
+;; Diff-hl
+(use-package diff-hl
+  :ensure t
+  :defer 1
+  :config (global-diff-hl-mode))
 
 ;;; packages.el ends here

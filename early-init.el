@@ -26,6 +26,9 @@
 ;; y-or-no-p
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; Move between windows with Meta+arrows
+(windmove-default-keybindings 'meta)
+
 ;; Display tabs and trailing spaces
 (global-whitespace-mode t)
 (setq-default whitespace-style '(face tab trailing))
