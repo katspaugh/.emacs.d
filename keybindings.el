@@ -7,18 +7,18 @@
 (bind-key "C-c C-\\" 'uncomment-region)
 
 ;; Jump to definition of symbol at point
-(defun jump-to-definition ()
-  "Jump to definition of symbol at point."
-  (interactive)
-  (imenu (symbol-name (symbol-at-point))))
-(bind-key "M-." 'jump-to-definition)
+;; (defun jump-to-definition ()
+;;   "Jump to definition of symbol at point."
+;;   (interactive)
+;;   (imenu (symbol-name (symbol-at-point))))
+;; (bind-key "M-." 'jump-to-definition)
 
 ;; Kill/copy region or line
 (defun flash-region (start end &optional timeout)
   "Flash the region between START and END with an optional TIMEOUT."
   (let ((overlay (make-overlay start end)))
     (overlay-put overlay 'face 'region)
-    (run-with-timer (or timeout 0.2) nil 'delete-overlay overlay)))
+    (run-with-timer (or timeout 0.1) nil 'delete-overlay overlay)))
 
 (defun copy-region-or-line ()
   "Copy region or a single line."

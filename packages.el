@@ -1,7 +1,7 @@
 ;;; Code:
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; Markdown
 (use-package markdown-mode
@@ -22,11 +22,11 @@
 (use-package rainbow-delimiters
   :ensure t
   :config
-  (progn
-    (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-    (add-hook 'ielm-mode-hook 'rainbow-delimiters-mode)
-    (add-hook 'lisp-interaction-mode-hook 'rainbow-delimiters-mode)
-    (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)))
+  :hook
+  (emacs-lisp-mode-hook . rainbow-delimiters-mode)
+  (ielm-mode-hook . rainbow-delimiters-mode)
+  (lisp-interaction-mode-hook . rainbow-delimiters-mode)
+  (lisp-mode-hook . rainbow-delimiters-mode))
 
 ;; Project explorer
 (use-package project-explorer
@@ -55,28 +55,36 @@
             (add-hook 'css-mode-hook #'rainbow-mode)))
 
 ;; Copilot
-(use-package s :ensure t)
-(use-package editorconfig :ensure t)
-(load "~/.emacs.d/copilot.el/copilot.el")
 (defun my/copilot-tab ()
+  "Copilot autocomplete."
   (interactive)
   (or (copilot-accept-completion)
       (indent-for-tab-command)))
-(with-eval-after-load 'copilot
-  (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab)
-  (define-key prog-mode-map (kbd "C-<tab>") #'indent-for-tab-command))
-(add-hook 'prog-mode-hook 'copilot-mode)
+
+(use-package s :ensure t)
+(use-package dash :ensure t)
+(use-package editorconfig :ensure t)
+
+(use-package copilot
+  :load-path "site-lisp/copilot"
+  :ensure nil
+  :hook ((prog-mode . copilot-mode))
+  :bind (
+         :map copilot-mode-map
+         ("<tab>" . my/copilot-tab)
+         :map prog-mode-map
+         ("C-<tab>" . indent-for-tab-command)))
 
 ;; Mini-frame
 (use-package mini-frame
   :ensure t
   :init (progn (mini-frame-mode)
                (custom-set-variables
-		'(mini-frame-show-parameters
-		  '((top . 0.2)
-		    (left . 0.5)
-		    (width . 0.9)
-		    (height . 15))))))
+		            '(mini-frame-show-parameters
+		              '((top . 0.2)
+		                (left . 0.5)
+		                (width . 0.9)
+		                (height . 15))))))
 
 ;; Make the minibuffer prompt's font bigger
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
@@ -98,8 +106,8 @@
   :after vertico
   :init
   (setq completion-styles '(orderless basic)
-	completion-category-defaults nil
-	completion-category-overrides '((file (styles . (partial-completion))))))
+	      completion-category-defaults nil
+	      completion-category-overrides '((file (styles . (partial-completion))))))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -128,9 +136,20 @@
   :init (global-company-mode)
   :bind (
          :map company-mode-map
-              ("M-<tab>" . company-complete)
-              :map company-active-map
-              ("<return>" . nil)))
+         ("M-<tab>" . company-complete)
+         :map company-active-map
+         ("<return>" . nil)))
+
+;; Prettier
+(use-package prettier
+  :ensure t
+  :defer 1)
+
+;; Flycheck
+(use-package flycheck
+  :ensure t
+  :defer 1
+  :config (global-flycheck-mode))
 
 ;; Typescript
 (use-package typescript-ts-mode
@@ -141,17 +160,15 @@
 
 (use-package tide
   :ensure t
-  :after (company flycheck)
+  :after (company flycheck prettier)
   :hook ((typescript-ts-mode . tide-setup)
          (tsx-ts-mode . tide-setup)
          (typescript-ts-mode . tide-hl-identifier-mode)
-         (after-save . prettier-prettify)))
-
-;; Flycheck
-(use-package flycheck
-  :ensure t
-  :defer 1
-  :config (global-flycheck-mode))
+         (typescript-ts-mode . prettier-mode)
+         (tsx-ts-mode . prettier-mode)
+         (js-mode . (lambda ()
+                      (unless (derived-mode-p 'js-json-mode)
+                        (prettier-mode 1))))))
 
 ;; Diff-hl
 (use-package diff-hl

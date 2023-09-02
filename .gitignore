@@ -8,3 +8,5 @@ smex-items
 history
 copilot.el
 ido.last
+eshell
+site-lisp/copilot
