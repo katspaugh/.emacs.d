@@ -12,7 +12,7 @@
  '(ivy-count-format "")
  '(mini-frame-show-parameters '((top . 0.2) (left . 0.5) (width . 0.9) (height . 15)))
  '(package-selected-packages
-   '(go-mode copilot prettier straight dash diff-hl tide consult-ag orderless tree-sitter-langs consult mini-frame editorconfig s vertico rainbow-mode counsel project-explorer flycheck rainbow-delimiters yaml-mode markdown-mode company))
+   '(lsp-mode go-mode copilot prettier straight dash diff-hl tide consult-ag orderless tree-sitter-langs consult mini-frame editorconfig s vertico rainbow-mode counsel project-explorer flycheck rainbow-delimiters yaml-mode markdown-mode company))
  '(standard-indent 2)
  '(vertico-count-format nil))
 (custom-set-faces

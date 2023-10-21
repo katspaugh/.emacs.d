@@ -1,7 +1,3 @@
-;; Performance tweaking for modern machines
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024))
-
 ;; Save desktop
 (desktop-save-mode)
 
@@ -32,6 +28,8 @@
 ;; Display tabs and trailing spaces
 (global-whitespace-mode t)
 (setq-default whitespace-style '(face tab trailing))
+;; Set a minimum width for line numbers
+(setq-default display-line-numbers-width 3)
 
 ;; Set tabs to 2 spaces
 (setq-default
