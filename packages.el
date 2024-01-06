@@ -141,7 +141,7 @@
          ("<return>" . nil)))
 
 ;; Prettier
-(use-package prettier
+(use-package prettier-js
   :ensure t
   :defer 1)
 
@@ -160,15 +160,16 @@
 
 (use-package tide
   :ensure t
-  :after (company flycheck prettier)
+  :after (company flycheck prettier-js)
   :hook ((typescript-ts-mode . tide-setup)
          (tsx-ts-mode . tide-setup)
          (typescript-ts-mode . tide-hl-identifier-mode)
-         (typescript-ts-mode . prettier-mode)
+         (typescript-ts-mode . prettier-js-mode)
          (tsx-ts-mode . prettier-mode)
          (js-mode . (lambda ()
                       (unless (derived-mode-p 'js-json-mode)
-                        (prettier-mode 1))))))
+                        (tide-setup)
+                        (prettier-js-mode 1))))))
 
 ;; Diff-hl
 (use-package diff-hl
@@ -181,11 +182,12 @@
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (XXX-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
+  :hook ((go-mode . lsp))
   :commands lsp)
 (use-package lsp-ui :commands lsp-ui-mode)
+
+(use-package consult
+  :ensure t
+  :bind ("M-l" . consult-line))
 
 ;;; packages.el ends here

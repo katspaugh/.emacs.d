@@ -5,20 +5,26 @@
  ;; If there is more than one, they won't work right.
  '(company-idle-delay nil)
  '(company-tooltip-idle-delay nil)
- '(custom-enabled-themes '(modus-operandi))
+ '(custom-enabled-themes '(acme))
+ '(custom-safe-themes
+   '("e7820b899036ae7e966dcaaec29fd6b87aef253748b7de09e74fdc54407a7a02" "835d934a930142d408a50b27ed371ba3a9c5a30286297743b0d488e94b225c5f" default))
  '(desktop-buffers-not-to-save ".")
  '(desktop-files-not-to-save ".")
  '(indent-tabs-mode nil)
  '(ivy-count-format "")
+ '(mini-frame-advice-functions '(read-from-minibuffer read-string))
  '(mini-frame-show-parameters '((top . 0.2) (left . 0.5) (width . 0.9) (height . 15)))
  '(package-selected-packages
-   '(lsp-mode go-mode copilot prettier straight dash diff-hl tide consult-ag orderless tree-sitter-langs consult mini-frame editorconfig s vertico rainbow-mode counsel project-explorer flycheck rainbow-delimiters yaml-mode markdown-mode company))
+   '(nano-theme nano-modeline prettier-js wat-ts-mode lsp-mode go-mode copilot prettier straight dash diff-hl tide consult-ag orderless tree-sitter-langs consult mini-frame editorconfig s vertico rainbow-mode counsel project-explorer flycheck rainbow-delimiters yaml-mode markdown-mode company))
  '(standard-indent 2)
- '(vertico-count-format nil))
+ '(vertico-count-format nil)
+ '(warning-minimum-level :error))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cursor ((t (:background "#ff0000"))))
+ '(isearch ((t nil)))
+ '(isearch-fail ((t (:background "khaki" :foreground "#444444" :weight normal))))
  '(vertico-current ((t (:inherit modus-themes-completion-selected :extend t :background "gray99" :weight normal)))))
