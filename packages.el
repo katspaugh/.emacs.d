@@ -41,11 +41,6 @@
          pe/omit-gitignore t
          pe/width 50))
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :init
-  (savehist-mode))
-
 ;; CSS colors
 (use-package rainbow-mode
   :ensure t
@@ -56,14 +51,14 @@
 
 ;; Copilot
 (defun my/copilot-tab ()
-  "Copilot autocomplete."
-  (interactive)
-  (or (copilot-accept-completion)
-      (indent-for-tab-command)))
+ "Copilot autocomplete."
+ (interactive)
+ (or (copilot-accept-completion)
+     (indent-for-tab-command)))
 
-(use-package s :ensure t)
-(use-package dash :ensure t)
+(use-package f :ensure t)
 (use-package editorconfig :ensure t)
+(use-package jsonrpc :ensure t)
 
 (use-package copilot
   :load-path "site-lisp/copilot"
@@ -71,49 +66,41 @@
   :hook ((prog-mode . copilot-mode))
   :bind (
          :map copilot-mode-map
-         ("<tab>" . my/copilot-tab)
-         :map prog-mode-map
-         ("C-<tab>" . indent-for-tab-command)))
+              ("<tab>" . my/copilot-tab)
+              :map prog-mode-map
+              ("C-<tab>" . indent-for-tab-command)))
 
 ;; Mini-frame
 (use-package mini-frame
-  :ensure t
-  :init (progn (mini-frame-mode)
-               (custom-set-variables
+:ensure t
+:init (progn (mini-frame-mode)
+             (custom-set-variables
 		            '(mini-frame-show-parameters
 		              '((top . 0.2)
 		                (left . 0.5)
 		                (width . 0.9)
 		                (height . 15))))))
-
+;
 ;; Make the minibuffer prompt's font bigger
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
 (defun my-minibuffer-setup ()
   (set (make-local-variable 'face-remapping-alist)
        '((default :height 250 :family "San Francisco"))))
 
-;; Vertico
 (ido-mode -1)
 (icomplete-mode -1)
 
-(use-package vertico
-  :ensure t
-  :config (setq vertico-count-format nil)
-  :init (vertico-mode))
-
-(use-package orderless
-  :ensure t
-  :after vertico
-  :init
-  (setq completion-styles '(orderless basic)
-	      completion-category-defaults nil
-	      completion-category-overrides '((file (styles . (partial-completion))))))
-
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :ensure t
   :init
   (savehist-mode))
+
+(use-package ivy
+  :ensure t
+  :config (ivy-mode 1)
+  :init
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t))
 
 ;; Counsel
 (use-package counsel
@@ -129,21 +116,17 @@
     (counsel-ag input)))
 
 (define-key isearch-mode-map (kbd "C-x C-g") 'counsel-ag-from-isearch)
+(define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
 
 ;; Code completion at point
 (use-package company
   :ensure t
-  :init (global-company-mode)
+  :init (company-mode 1)
   :bind (
          :map company-mode-map
          ("M-<tab>" . company-complete)
          :map company-active-map
          ("<return>" . nil)))
-
-;; Prettier
-(use-package prettier-js
-  :ensure t
-  :defer 1)
 
 ;; Flycheck
 (use-package flycheck
@@ -160,16 +143,23 @@
 
 (use-package tide
   :ensure t
-  :after (company flycheck prettier-js)
+  :after (company flycheck)
   :hook ((typescript-ts-mode . tide-setup)
-         (tsx-ts-mode . tide-setup)
          (typescript-ts-mode . tide-hl-identifier-mode)
-         (typescript-ts-mode . prettier-js-mode)
-         (tsx-ts-mode . prettier-mode)
+         (tsx-ts-mode . tide-setup)
+         (js-mode . tide-setup)
          (js-mode . (lambda ()
-                      (unless (derived-mode-p 'js-json-mode)
-                        (tide-setup)
-                        (prettier-js-mode 1))))))
+                      (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)))
+         (before-save . tide-format-before-save)))
+
+;; Prettier
+(use-package prettier-js
+  :ensure t
+  :defer 1
+  :hook ((js-mode . prettier-js-mode)
+         (typescript-mode . prettier-js-mode)
+         (typescript-ts-mode . prettier-js-mode)
+         (tsx-ts-mode . prettier-js-mode)))
 
 ;; Diff-hl
 (use-package diff-hl
@@ -177,17 +167,14 @@
   :defer 1
   :config (global-diff-hl-mode))
 
-(use-package lsp-mode
-  :ensure t
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((go-mode . lsp))
-  :commands lsp)
-(use-package lsp-ui :commands lsp-ui-mode)
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :init
+;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+;;   (setq lsp-keymap-prefix "C-c l")
+;;   :hook ((go-mode . lsp) (lua-mode . lsp))
+;;   :commands lsp)
+;; (use-package lsp-ui :commands lsp-ui-mode :ensure t)
 
-(use-package consult
-  :ensure t
-  :bind ("M-l" . consult-line))
 
 ;;; packages.el ends here

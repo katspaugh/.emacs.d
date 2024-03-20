@@ -10,3 +10,7 @@ copilot.el
 ido.last
 eshell
 site-lisp/copilot
+transient
+url
+.lsp-session-v1
+projects
