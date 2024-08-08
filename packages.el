@@ -1,3 +1,4 @@
+
 ;;; Code:
 
 (package-initialize)
@@ -87,20 +88,53 @@
   (set (make-local-variable 'face-remapping-alist)
        '((default :height 250 :family "San Francisco"))))
 
-(ido-mode -1)
-(icomplete-mode -1)
+;; Enable vertico
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode))
+
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Support opening new minibuffers from inside existing minibuffers.
+  (setq enable-recursive-minibuffers t)
+
+  ;; Emacs 28 and newer: Hide commands in M-x which do not work in the current
+  ;; mode.  Vertico commands are hidden in normal buffers. This setting is
+  ;; useful beyond Vertico.
+  (setq read-extended-command-predicate #'command-completion-default-include-p))
+
+;; Optionally use the `orderless' completion style.
+(use-package orderless
+  :ensure t
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :init
   (savehist-mode))
-
-(use-package ivy
-  :ensure t
-  :config (ivy-mode 1)
-  :init
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t))
 
 ;; Counsel
 (use-package counsel
@@ -116,12 +150,11 @@
     (counsel-ag input)))
 
 (define-key isearch-mode-map (kbd "C-x C-g") 'counsel-ag-from-isearch)
-(define-key isearch-mode-map (kbd "C-e") 'isearch-edit-string)
 
 ;; Code completion at point
 (use-package company
   :ensure t
-  :init (company-mode 1)
+  :init (global-company-mode 1)
   :bind (
          :map company-mode-map
          ("M-<tab>" . company-complete)
@@ -131,7 +164,6 @@
 ;; Flycheck
 (use-package flycheck
   :ensure t
-  :defer 1
   :config (global-flycheck-mode))
 
 ;; Typescript
@@ -166,6 +198,9 @@
   :ensure t
   :defer 1
   :config (global-diff-hl-mode))
+
+(ido-mode -1)
+(icomplete-mode -1)
 
 ;; (use-package lsp-mode
 ;;   :ensure t

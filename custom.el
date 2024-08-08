@@ -6,9 +6,6 @@
  '(company-idle-delay nil)
  '(company-tooltip-idle-delay nil)
  '(consult-preview-key nil)
- '(custom-enabled-themes '(acme))
- '(custom-safe-themes
-   '("e7820b899036ae7e966dcaaec29fd6b87aef253748b7de09e74fdc54407a7a02" "835d934a930142d408a50b27ed371ba3a9c5a30286297743b0d488e94b225c5f" default))
  '(desktop-buffers-not-to-save ".")
  '(desktop-files-not-to-save ".")
  '(indent-tabs-mode nil)
@@ -28,5 +25,4 @@
  '(cursor ((t (:background "#ff0000"))))
  '(isearch ((t nil)))
  '(isearch-fail ((t (:background "dark red" :foreground "white" :weight normal))))
- '(minibuffer-prompt ((t (:background "#E6F9FE" :foreground "#444444" :weight normal))))
- '(vertico-current ((t (:inherit modus-themes-completion-selected :extend t :background "gray99" :weight normal)))))
+ '(minibuffer-prompt ((t (:background "#E6F9FE" :foreground "#444444" :weight normal)))))
