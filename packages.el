@@ -62,7 +62,7 @@
 (use-package jsonrpc :ensure t)
 
 (use-package copilot
-  :load-path "site-lisp/copilot"
+  :load-path "site-lisp/copilot.el"
   :ensure nil
   :hook ((prog-mode . copilot-mode))
   :bind (
@@ -73,9 +73,9 @@
 
 ;; Mini-frame
 (use-package mini-frame
-:ensure t
-:init (progn (mini-frame-mode)
-             (custom-set-variables
+  :ensure t
+  :init (progn (mini-frame-mode)
+               (custom-set-variables
 		            '(mini-frame-show-parameters
 		              '((top . 0.2)
 		                (left . 0.5)
@@ -91,8 +91,7 @@
 ;; Enable vertico
 (use-package vertico
   :ensure t
-  :init
-  (vertico-mode))
+  :init (vertico-mode))
 
 (use-package emacs
   :init
